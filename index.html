@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1f3864">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Mes congés</title>
+<style>
+html,body{margin:0}*{box-sizing:border-box}
+body{padding-top:max(16px,env(safe-area-inset-top,0px))!important}
+/* Layout : une colonne façon appli de poche — soldes en tête, à venir, calendrier du mois, compteurs ADP */
+:root{
+  --bg:#f3f5f8; --card:#ffffff; --fg:#17202b; --muted:#5d6b7c; --line:#dfe4eb;
+  --accent:#1f3864; --accent-soft:#e3e9f4; --warn:#a85a00; --warn-soft:#fff1dc;
+  --today:#ffd966; --ferie:#c00000;
+  --display:system-ui, "Segoe UI", Roboto, sans-serif;
+  --body:system-ui, "Segoe UI", Roboto, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f141b; --card:#18202b; --fg:#e8edf3; --muted:#9aa8b8; --line:#2a3542;
+  --accent:#9db8ec; --accent-soft:#22314a; --warn:#ffb85c; --warn-soft:#3a2a12;
+  --today:#c9a227; --ferie:#ff7b7b; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#0f141b; --card:#18202b; --fg:#e8edf3; --muted:#9aa8b8; --line:#2a3542;
+  --accent:#9db8ec; --accent-soft:#22314a; --warn:#ffb85c; --warn-soft:#3a2a12;
+  --today:#c9a227; --ferie:#ff7b7b; color-scheme:dark }
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.45;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px 32px}
+.wrap{max-width:560px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+header h1{font-family:var(--display);font-weight:800;font-size:1.9rem;margin:0;letter-spacing:-.01em;color:var(--accent)}
+header p{margin:2px 0 0;color:var(--muted);font-size:.9rem}
+h2{font-family:var(--display);font-weight:600;font-size:1.15rem;margin:0 0 10px}
+section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 10px;text-align:center}
+.kpi .v{font-family:var(--display);font-weight:800;font-size:2rem;line-height:1;font-variant-numeric:tabular-nums}
+.kpi .u{font-size:.85rem;color:var(--muted)}
+.kpi .l{font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+.kpi.cp .v{color:#3d8a1f} .kpi.jtp .v{color:#2b7bb9}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .kpi.cp .v{color:#92d050}:root:not([data-theme="light"]) .kpi.jtp .v{color:#8fd0ff}}
+:root[data-theme="dark"] .kpi.cp .v{color:#92d050}:root[data-theme="dark"] .kpi.jtp .v{color:#8fd0ff}
+.list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.item{display:flex;gap:12px;align-items:center}
+.sw{width:14px;height:14px;border-radius:4px;flex:none;border:1px solid rgba(0,0,0,.15)}
+.item .txt{min-width:0;flex:1}
+.item .t{font-weight:700}
+.item .d{color:var(--muted);font-size:.92rem}
+.pill{display:inline-block;font-size:.75rem;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--warn-soft);color:var(--warn);margin-left:6px;vertical-align:1px}
+.empty{color:var(--muted)}
+.calhead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
+.calhead h2{margin:0;text-transform:capitalize}
+.nav{display:flex;gap:6px}
+button{font:inherit;font-size:.95rem;border:1px solid var(--line);background:var(--accent-soft);color:var(--fg);border-radius:10px;min-width:44px;min-height:40px;padding:0 12px;cursor:pointer}
+button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.dow{font-size:.75rem;text-align:center;color:var(--muted);font-weight:700;padding-bottom:2px}
+.day{aspect-ratio:1/1;max-width:100%;border-radius:9px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-variant-numeric:tabular-nums;font-weight:700;font-size:1rem;border:2px solid transparent;background:transparent;color:var(--fg);min-width:0;min-height:0;padding:0;position:relative}
+.day.we{color:var(--muted)}
+.day.out{visibility:hidden}
+.day.fer{color:var(--ferie)}
+.day.today{border-color:var(--today)}
+.day.sel{outline:3px solid var(--accent);outline-offset:1px}
+.day .dot{position:absolute;bottom:4px;width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.7}
+.day.half{background-image:linear-gradient(135deg,transparent 50%,var(--card) 50%)!important}
+.detail{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);min-height:1.5em}
+.legend{display:flex;flex-wrap:wrap;gap:8px 14px;margin-top:12px;font-size:.85rem;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+td{padding:8px 0;border-bottom:1px solid var(--line)}
+td:last-child{text-align:right;font-weight:700;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+.note{font-size:.85rem;color:var(--muted);margin:8px 0 0}
+footer{font-size:.82rem;color:var(--muted);text-align:center}
+@media (max-width:360px){.kpi .v{font-size:1.6rem}}
+@media (prefers-reduced-motion: no-preference){.day{transition:transform .08s}.day:active{transform:scale(.94)}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <h1>Mes congés</h1>
+    <p id="maj"></p>
+  </header>
+
+  <div class="kpis">
+    <div class="kpi cp"><div class="l">CP</div><div class="v" id="k-cp"></div><div class="u">jours restants</div></div>
+    <div class="kpi jtp"><div class="l">RTT / JTP</div><div class="v" id="k-jtp"></div><div class="u">jours restants</div></div>
+    <div class="kpi"><div class="l">Solde HA</div><div class="v" id="k-ha"></div><div class="u">heures</div></div>
+  </div>
+
+  <section>
+    <h2>À venir</h2>
+    <ul class="list" id="next"></ul>
+  </section>
+
+  <section>
+    <div class="calhead">
+      <h2 id="mname"></h2>
+      <div class="nav">
+        <button id="prev" aria-label="Mois précédent">‹</button>
+        <button id="now">Aujourd’hui</button>
+        <button id="next-m" aria-label="Mois suivant">›</button>
+      </div>
+    </div>
+    <div class="grid" id="grid"></div>
+    <div class="detail" id="detail">Touchez un jour pour voir le détail.</div>
+    <div class="legend" id="legend"></div>
+  </section>
+
+  <section>
+    <h2>Compteurs ADP</h2>
+    <table id="adp"></table>
+    <p class="note" id="adpnote"></p>
+  </section>
+
+  <footer>Données de votre fichier « Calendrier et congés », mises à jour chaque semaine avec ADP. Fonctionne aussi sans Internet (dernières données reçues).</footer>
+</div>
+
+<script>
+let D;
+async function boot(){
+  try{const r=await fetch('data.json',{cache:'no-cache'});D=await r.json();}
+  catch(e){document.querySelector('.wrap').insertAdjacentHTML('beforeend','<p>Impossible de charger les données. Reconnectez-vous à Internet.</p>');return}
+  main();
+}
+function main(){
+const MOIS=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+const JOURS=['Lu','Ma','Me','Je','Ve','Sa','Di'];
+const ABS=new Set(['Fermeture camping','Service fermé','Congé','JTP','Récup','Crédit pont','Maladie','Absence','Formation','Congé ancienneté','Journée solidarité','Grève','Événement familial','Mariage','Matin','Après-midi']);
+const fr=n=>(Math.round(n*10)/10).toLocaleString('fr-FR');
+const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const parse=s=>{const [y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)};
+const fmt=s=>{const d=parse(s);return d.toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'short'})};
+const color=t=>(D.types[t]||['BFBFBF',false]);
+const today=new Date(); today.setHours(0,0,0,0); const T=iso(today);
+
+document.getElementById('maj').textContent='Mis à jour le '+D.maj+' · compteurs ADP au '+D.adp_asof;
+document.getElementById('k-cp').textContent=fr(D.cp.restant);
+document.getElementById('k-jtp').textContent=fr(D.jtp.restant);
+document.getElementById('k-ha').textContent=fr(D.ha.solde);
+
+// index jour -> événements
+const byDay={};
+for(const e of D.ev){let d=parse(e.d);const f=parse(e.f);
+  while(d<=f){const k=iso(d);(byDay[k]=byDay[k]||[]).push(e);d.setDate(d.getDate()+1)}}
+
+// à venir
+const nx=document.getElementById('next');
+const up=D.ev.filter(e=>e.f>=T&&ABS.has(e.t)).sort((a,b)=>a.d<b.d?-1:1).slice(0,6);
+if(!up.length){nx.innerHTML='<li class="empty">Aucune absence prévue.</li>'}
+for(const e of up){const [c]=color(e.t);const li=document.createElement('li');li.className='item';
+  const quand=e.d===e.f?fmt(e.d):'du '+fmt(e.d)+' au '+fmt(e.f);
+  const dur=e.hr?fr(e.hr)+' h':(e.j?fr(e.j)+' j':'');
+  const wait=e.att?'<span class="pill">en attente</span>':'';
+  li.innerHTML=`<span class="sw" style="background:#${c}"></span><div class="txt"><div class="t">${e.t}${wait}</div><div class="d">${quand}${dur?' · '+dur:''}</div></div>`;
+  nx.appendChild(li)}
+
+// calendrier
+let cur=new Date(today.getFullYear(),today.getMonth(),1);
+const grid=document.getElementById('grid'), det=document.getElementById('detail');
+function pick(t,list){ // type prioritaire à afficher
+  const order=['Congé','JTP','Récup','Maladie','Congé ancienneté','Crédit pont','Formation','Absence','Grève','Événement familial','Mariage','Journée solidarité'];
+  for(const o of order){const e=list.find(x=>x.t===o);if(e)return e}
+  return list[0]}
+function render(){
+  document.getElementById('mname').textContent=MOIS[cur.getMonth()]+' '+cur.getFullYear();
+  grid.innerHTML=JOURS.map(j=>`<div class="dow">${j}</div>`).join('');
+  const first=(cur.getDay()+6)%7; const n=new Date(cur.getFullYear(),cur.getMonth()+1,0).getDate();
+  for(let i=0;i<first;i++){const s=document.createElement('div');s.className='day out';grid.appendChild(s)}
+  for(let d=1;d<=n;d++){const dt=new Date(cur.getFullYear(),cur.getMonth(),d);const k=iso(dt);
+    const b=document.createElement('button');b.className='day';b.textContent=d;b.dataset.k=k;
+    const wd=(dt.getDay()+6)%7; if(wd>=5)b.classList.add('we');
+    if(D.fer[k])b.classList.add('fer');
+    if(k===T)b.classList.add('today');
+    const l=(byDay[k]||[]).filter(e=>wd<5||ABS.has(e.t));
+    if(l.length){const e=pick(k,l);const [c,w]=color(e.t);b.style.background='#'+c;b.style.color=w?'#fff':'#111';
+      if(e.h||e.t==='Matin'||e.t==='Après-midi'||(e.hr&&e.hr<7))b.classList.add('half');
+      if(e.att){const dot=document.createElement('span');dot.className='dot';b.appendChild(dot)}}
+    b.setAttribute('aria-label',dt.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'})+(l.length?' : '+l.map(e=>e.t).join(', '):''));
+    b.addEventListener('click',()=>show(k,b));grid.appendChild(b)}
+  const used=new Set();for(const k in byDay){if(k.startsWith(iso(cur).slice(0,7)))byDay[k].forEach(e=>used.add(e.t))}
+  document.getElementById('legend').innerHTML=[...used].map(t=>`<span><span class="sw" style="background:#${color(t)[0]}"></span>${t}</span>`).join('')+
+    `<span><span class="sw" style="border:2px solid var(--today)"></span>aujourd’hui</span><span style="color:var(--ferie);font-weight:700">férié en rouge</span>`;
+}
+function show(k,b){grid.querySelectorAll('.sel').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');
+  const l=byDay[k]||[];let h=`<strong>${parse(k).toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}</strong>`;
+  if(D.fer[k])h+=`<div style="color:var(--ferie)">Jour férié : ${D.fer[k]}</div>`;
+  if(!l.length&&!D.fer[k])h+='<div class="empty">Rien de noté ce jour-là.</div>';
+  for(const e of l){const dur=e.hr?' · '+fr(e.hr)+' h':(e.h?' · ½ journée':'');
+    h+=`<div class="item" style="margin-top:6px"><span class="sw" style="background:#${color(e.t)[0]}"></span><div class="txt"><div class="t">${e.t}${dur}</div>${e.att?'<div class="d">en attente de validation</div>':''}</div></div>`}
+  det.innerHTML=h}
+document.getElementById('prev').onclick=()=>{cur.setMonth(cur.getMonth()-1);render()};
+document.getElementById('next-m').onclick=()=>{cur.setMonth(cur.getMonth()+1);render()};
+document.getElementById('now').onclick=()=>{cur=new Date(today.getFullYear(),today.getMonth(),1);render()};
+let x0=null;grid.addEventListener('touchstart',e=>{x0=e.touches[0].clientX},{passive:true});
+grid.addEventListener('touchend',e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0;x0=null;
+  if(Math.abs(dx)>50){cur.setMonth(cur.getMonth()+(dx<0?1:-1));render()}},{passive:true});
+render();
+
+// compteurs ADP
+document.getElementById('adp').innerHTML=D.adp.map(([l,v])=>`<tr><td>${l}</td><td>${fr(v)} j</td></tr>`).join('');
+document.getElementById('adpnote').textContent='RTT : '+fr(D.adp[3][1])+' j une fois comptée la demande en attente.';
+}
+boot();
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js')}
+</script>
+</body>
+</html>
