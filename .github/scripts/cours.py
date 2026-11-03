@@ -38,3 +38,20 @@ for v in valeurs:
 json.dump({'maj': datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds'), 'cours': sortie},
           open('bourse/cours.json', 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
 print('ok', [(c['nom'], c.get('prix')) for c in sortie])
+
+# --- liste complète (CAC 40 + autres) pour le choix des valeurs et le tableau Excel
+try:
+    liste = json.load(open('bourse/liste.json', encoding='utf-8'))
+    out = []
+    for nom, sym in liste:
+        try:
+            c = lire(sym)
+            out.append({'nom': nom, 'symbole': sym, 'prix': c['prix'], 'veille': c['veille'], 'devise': c['devise'], 'heure': c['heure'], 'ok': True})
+        except Exception as e:
+            print('erreur liste', sym, e)
+            out.append({'nom': nom, 'symbole': sym, 'ok': False})
+        time.sleep(0.5)
+    json.dump({'maj': datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds'), 'cours': out},
+              open('bourse/liste_cours.json', 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+except FileNotFoundError:
+    pass
