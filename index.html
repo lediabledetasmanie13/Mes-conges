@@ -204,7 +204,7 @@ render();
 
 // compteurs ADP
 document.getElementById('adp').innerHTML=D.adp.map(([l,v])=>`<tr><td>${l}</td><td>${fr(v)} j</td></tr>`).join('');
-document.getElementById('adpnote').textContent='RTT : '+fr(D.adp[3][1])+' j une fois comptée la demande en attente.';
+document.getElementById('adpnote').textContent='RTT : '+fr(D.adp[3][1])+' j après les RTT de novembre.';
 }
 boot();
 if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js')}
