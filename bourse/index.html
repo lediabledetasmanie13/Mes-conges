@@ -77,7 +77,7 @@ const fl=n=>n>0?'▲':n<0?'▼':'=';
 let DATA=null;
 function lirePf(){try{return JSON.parse(localStorage.getItem('pf')||'{}')}catch(e){return {}}}
 function ecrirePf(p){try{localStorage.setItem('pf',JSON.stringify(p))}catch(e){}}
-function devise(d){return d==='EUR'?' €':d==='USD'?' $':''}
+function devise(d,sym){if(sym&&sym.startsWith('^'))return ' pts';return d==='EUR'?' €':d==='USD'?' $':''}
 function spark(h,c){if(!h||h.length<2)return '';const mn=Math.min(...h),mx=Math.max(...h),w=200,ht=28,r=(mx-mn)||1;
   const pts=h.map((v,i)=>`${(i/(h.length-1)*w).toFixed(1)},${(ht-2-(v-mn)/r*(ht-4)).toFixed(1)}`).join(' ');
   const col=h[h.length-1]>=h[0]?'var(--up)':'var(--down)';
@@ -90,10 +90,10 @@ function rendre(){
     let gainTxt='';
     if(ok&&p.q>0&&p.a>0){const g=(c.prix-p.a)*p.q, pv=(c.prix-p.a)/p.a*100; tot+=g; avec=true;
       gainTxt=`<span class="${cls(g)}">${sgn(g,F0)} €</span> · ${sgn(pv,new Intl.NumberFormat('fr-FR',{maximumFractionDigits:1}))} % sur ${p.q} titre${p.q>1?'s':''}`;
-      band.push(`<span style="color:${c.couleur}">${c.nom}</span><span>${FR.format(c.prix)}${devise(c.devise)}</span><span class="${cls(vj)}">${fl(vj)} ${sgn(vj)} %</span><span class="${cls(g)}">[${sgn(g,F0)} €]</span><span class="sep"></span>`)}
-    else band.push(`<span style="color:${c.couleur}">${c.nom}</span><span>${ok?FR.format(c.prix)+devise(c.devise):'—'}</span>${ok?`<span class="${cls(vj)}">${fl(vj)} ${sgn(vj)} %</span>`:''}<span class="sep"></span>`);
+      band.push(`<span style="color:${c.couleur}">${c.nom}</span><span>${FR.format(c.prix)}${devise(c.devise,c.symbole)}</span><span class="${cls(vj)}">${fl(vj)} ${sgn(vj)} %</span><span class="${cls(g)}">[${sgn(g,F0)} €]</span><span class="sep"></span>`)}
+    else band.push(`<span style="color:${c.couleur}">${c.nom}</span><span>${ok?FR.format(c.prix)+devise(c.devise,c.symbole):'—'}</span>${ok?`<span class="${cls(vj)}">${fl(vj)} ${sgn(vj)} %</span>`:''}<span class="sep"></span>`);
     rows.push(`<div class="row"><div class="nom"><span style="color:${c.couleur}">${c.nom}</span><span class="sym">${c.symbole}</span></div>
-      <div class="prix">${ok?FR.format(c.prix)+devise(c.devise):'—'}</div>${spark(c.historique,c.couleur)||'<span></span>'}
+      <div class="prix">${ok?FR.format(c.prix)+devise(c.devise,c.symbole):'—'}</div>${spark(c.historique,c.couleur)||'<span></span>'}
       <div class="var ${cls(vj)}">${ok?fl(vj)+' '+sgn(vj)+' %':'en attente'}</div>${gainTxt?`<div class="gain">${gainTxt}</div>`:''}</div>`)}
   if(avec)band.push(`<span>MON PORTEFEUILLE</span><span class="${cls(tot)}">${sgn(tot,F0)} €</span><span class="sep"></span>`);
   const html=band.join(''); const tr=document.getElementById('track'); tr.innerHTML=html+html;
