@@ -1,0 +1,55 @@
+{
+ "maj": null,
+ "cours": [
+  {
+   "nom": "CAC 40",
+   "symbole": "^FCHI",
+   "couleur": "#FFFFFF",
+   "prix": null,
+   "veille": null,
+   "devise": "EUR",
+   "historique": [],
+   "ok": false
+  },
+  {
+   "nom": "VINCI",
+   "symbole": "DG.PA",
+   "couleur": "#FF8040",
+   "prix": null,
+   "veille": null,
+   "devise": "EUR",
+   "historique": [],
+   "ok": false
+  },
+  {
+   "nom": "VIVENDI",
+   "symbole": "VIV.PA",
+   "couleur": "#F04848",
+   "prix": null,
+   "veille": null,
+   "devise": "EUR",
+   "historique": [],
+   "ok": false
+  },
+  {
+   "nom": "KAUFMAN ET BROAD",
+   "symbole": "KOF.PA",
+   "couleur": "#FF0080",
+   "prix": null,
+   "veille": null,
+   "devise": "EUR",
+   "historique": [],
+   "ok": false
+  },
+  {
+   "nom": "PUBLICIS",
+   "symbole": "PUB.PA",
+   "couleur": "#C0C0C0",
+   "prix": null,
+   "veille": null,
+   "devise": "EUR",
+   "historique": [],
+   "ok": false
+  }
+ ]
+}

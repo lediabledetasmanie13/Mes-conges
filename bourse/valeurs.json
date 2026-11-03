@@ -1,0 +1,7 @@
+[
+  {"nom": "CAC 40", "symbole": "^FCHI", "couleur": "#FFFFFF"},
+  {"nom": "VINCI", "symbole": "DG.PA", "couleur": "#FF8040"},
+  {"nom": "VIVENDI", "symbole": "VIV.PA", "couleur": "#F04848"},
+  {"nom": "KAUFMAN ET BROAD", "symbole": "KOF.PA", "couleur": "#FF0080"},
+  {"nom": "PUBLICIS", "symbole": "PUB.PA", "couleur": "#C0C0C0"}
+]

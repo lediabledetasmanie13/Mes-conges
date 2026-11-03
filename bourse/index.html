@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<title>Boursi Scroller</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<style>
+/* Écran de cotation : bandeau défilant en tête comme l'ancien Boursi Scroller, puis une ligne par valeur */
+:root{
+  --bg:#000; --panel:#0e1116; --line:#232a33; --fg:#ecf0f4; --muted:#8b97a5;
+  --up:#4fdc6a; --down:#ff5a5a; --flat:#d8dee6; --accent:#ffb000;
+  --mono:ui-monospace,"Cascadia Mono","Roboto Mono",Consolas,monospace;
+  --body:system-ui,"Segoe UI",Roboto,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.band{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:#000;border-bottom:1px solid var(--line);overflow:hidden;white-space:nowrap;height:38px;display:flex;align-items:center}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:#000;z-index:10}
+.track{display:inline-flex;gap:0;animation:defile var(--duree,40s) linear infinite;font-family:var(--mono);font-weight:700;font-size:15px}
+.band:active .track,.band:hover .track{animation-play-state:paused}
+.track span{padding-right:.35em}
+.sep{display:inline-block;width:2.2em}
+@keyframes defile{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion: reduce){.track{animation:none}}
+main{max-width:640px;margin:0 auto;padding-block:14px 28px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:14px}
+.top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+h1{margin:0;font-size:1.35rem;letter-spacing:.02em;font-family:var(--mono);color:var(--accent)}
+.maj{color:var(--muted);font-size:.85rem}
+.total{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center}
+.total .l{color:var(--muted);font-size:.85rem;text-transform:uppercase;letter-spacing:.08em}
+.total .v{font-family:var(--mono);font-weight:700;font-size:1.5rem}
+.rows{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--panel)}
+.row{display:grid;grid-template-columns:1fr auto;grid-template-areas:"nom prix" "spark var" "gain gain";gap:2px 12px;padding:12px 14px;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:none}
+.nom{grid-area:nom;font-weight:700;letter-spacing:.03em;min-width:0}
+.sym{color:var(--muted);font-weight:400;font-size:.8rem;margin-left:6px}
+.prix{grid-area:prix;font-family:var(--mono);font-weight:700;font-size:1.15rem;text-align:right}
+.var{grid-area:var;font-family:var(--mono);font-size:.95rem;text-align:right;align-self:center}
+.spark{grid-area:spark;height:28px;width:100%;max-width:220px}
+.gain{grid-area:gain;font-family:var(--mono);font-size:.88rem;color:var(--muted)}
+.up{color:var(--up)} .down{color:var(--down)} .flat{color:var(--flat)}
+details{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+summary{cursor:pointer;font-weight:700}
+.form{display:grid;grid-template-columns:1fr 5.5em 6.5em;gap:8px 10px;align-items:center;margin-top:12px;font-size:.9rem}
+.form .h{color:var(--muted);font-size:.78rem;text-transform:uppercase;letter-spacing:.06em}
+input{font:inherit;font-family:var(--mono);width:100%;background:#000;color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:8px}
+input:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+button{font:inherit;font-weight:700;background:var(--accent);color:#000;border:none;border-radius:8px;padding:10px 14px;cursor:pointer}
+.note{color:var(--muted);font-size:.8rem;line-height:1.4}
+</style>
+</head>
+<body>
+<div class="band" id="band" aria-label="Bandeau des cours"><div class="track" id="track"><span style="color:var(--muted)">Chargement des cours…</span></div></div>
+<main>
+  <div class="top"><h1>BOURSI SCROLLER</h1><span class="maj" id="maj"></span></div>
+  <div class="total" id="total" hidden><span class="l">Mon portefeuille</span><span class="v" id="totalv"></span></div>
+  <div class="rows" id="rows"></div>
+  <details id="reglages">
+    <summary>Mes quantités et prix d'achat</summary>
+    <p class="note">Ces chiffres restent sur ce téléphone uniquement. Ils servent à calculer votre gain. Laissez vide pour ne pas l'afficher.</p>
+    <form class="form" id="form"></form>
+  </details>
+  <p class="note">Cours Yahoo Finance différés (environ 15 à 20 minutes), actualisés en journée les jours de Bourse. Inspiré de Boursi Scroller © 2006 Sébastien Raupp.</p>
+</main>
+<script>
+const FR=new Intl.NumberFormat('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2});
+const F0=new Intl.NumberFormat('fr-FR',{maximumFractionDigits:0});
+const sgn=(n,f=FR)=>(n>0?'+':n<0?'−':'')+f.format(Math.abs(n));
+const cls=n=>n>0?'up':n<0?'down':'flat';
+const fl=n=>n>0?'▲':n<0?'▼':'=';
+let DATA=null;
+function lirePf(){try{return JSON.parse(localStorage.getItem('pf')||'{}')}catch(e){return {}}}
+function ecrirePf(p){try{localStorage.setItem('pf',JSON.stringify(p))}catch(e){}}
+function devise(d){return d==='EUR'?' €':d==='USD'?' $':''}
+function spark(h,c){if(!h||h.length<2)return '';const mn=Math.min(...h),mx=Math.max(...h),w=200,ht=28,r=(mx-mn)||1;
+  const pts=h.map((v,i)=>`${(i/(h.length-1)*w).toFixed(1)},${(ht-2-(v-mn)/r*(ht-4)).toFixed(1)}`).join(' ');
+  const col=h[h.length-1]>=h[0]?'var(--up)':'var(--down)';
+  return `<svg class="spark" viewBox="0 0 ${w} ${ht}" preserveAspectRatio="none" aria-hidden="true"><polyline points="${pts}" fill="none" stroke="${col}" stroke-width="1.6" vector-effect="non-scaling-stroke"/></svg>`}
+function rendre(){
+  if(!DATA)return; const pf=lirePf(); let tot=0,avec=false; const band=[]; const rows=[];
+  for(const c of DATA.cours){
+    const p=pf[c.symbole]||{}; const ok=typeof c.prix==='number';
+    const vj=ok&&c.veille?(c.prix-c.veille)/c.veille*100:0;
+    let gainTxt='';
+    if(ok&&p.q>0&&p.a>0){const g=(c.prix-p.a)*p.q, pv=(c.prix-p.a)/p.a*100; tot+=g; avec=true;
+      gainTxt=`<span class="${cls(g)}">${sgn(g,F0)} €</span> · ${sgn(pv,new Intl.NumberFormat('fr-FR',{maximumFractionDigits:1}))} % sur ${p.q} titre${p.q>1?'s':''}`;
+      band.push(`<span style="color:${c.couleur}">${c.nom}</span><span>${FR.format(c.prix)}${devise(c.devise)}</span><span class="${cls(vj)}">${fl(vj)} ${sgn(vj)} %</span><span class="${cls(g)}">[${sgn(g,F0)} €]</span><span class="sep"></span>`)}
+    else band.push(`<span style="color:${c.couleur}">${c.nom}</span><span>${ok?FR.format(c.prix)+devise(c.devise):'—'}</span>${ok?`<span class="${cls(vj)}">${fl(vj)} ${sgn(vj)} %</span>`:''}<span class="sep"></span>`);
+    rows.push(`<div class="row"><div class="nom"><span style="color:${c.couleur}">${c.nom}</span><span class="sym">${c.symbole}</span></div>
+      <div class="prix">${ok?FR.format(c.prix)+devise(c.devise):'—'}</div>${spark(c.historique,c.couleur)||'<span></span>'}
+      <div class="var ${cls(vj)}">${ok?fl(vj)+' '+sgn(vj)+' %':'en attente'}</div>${gainTxt?`<div class="gain">${gainTxt}</div>`:''}</div>`)}
+  if(avec)band.push(`<span>MON PORTEFEUILLE</span><span class="${cls(tot)}">${sgn(tot,F0)} €</span><span class="sep"></span>`);
+  const html=band.join(''); const tr=document.getElementById('track'); tr.innerHTML=html+html;
+  requestAnimationFrame(()=>{tr.style.setProperty('--duree',Math.max(15,tr.scrollWidth/2/60)+'s')});
+  document.getElementById('rows').innerHTML=rows.join('');
+  const T=document.getElementById('total'); T.hidden=!avec; document.getElementById('totalv').innerHTML=`<span class="${cls(tot)}">${sgn(tot,F0)} €</span>`;
+  const d=DATA.maj?new Date(DATA.maj):null;
+  document.getElementById('maj').textContent=d?'cours du '+d.toLocaleDateString('fr-FR',{day:'numeric',month:'short'})+' à '+d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}):'cours en attente';
+}
+function formulaire(){
+  const pf=lirePf(); const f=document.getElementById('form');
+  f.innerHTML='<span class="h">Valeur</span><span class="h">Quantité</span><span class="h">Prix d\'achat</span>'+
+    DATA.cours.filter(c=>!c.symbole.startsWith('^')).map(c=>{const p=pf[c.symbole]||{};
+    return `<label for="q-${c.symbole}">${c.nom}</label><input id="q-${c.symbole}" inputmode="decimal" value="${p.q||''}" aria-label="Quantité ${c.nom}"><input id="a-${c.symbole}" inputmode="decimal" value="${p.a?String(p.a).replace('.',','):''}" aria-label="Prix d'achat ${c.nom}">`}).join('')+
+    '<span></span><button type="submit" style="grid-column:2 / 4">Enregistrer</button>';
+  f.onsubmit=e=>{e.preventDefault();const n={};for(const c of DATA.cours){const q=document.getElementById('q-'+c.symbole),a=document.getElementById('a-'+c.symbole);
+    if(!q)continue;const qv=parseFloat((q.value||'').replace(',','.')),av=parseFloat((a.value||'').replace(',','.'));
+    if(qv>0&&av>0)n[c.symbole]={q:qv,a:av}}ecrirePf(n);rendre();f.querySelector('button').textContent='Enregistré ✓';setTimeout(()=>f.querySelector('button').textContent='Enregistrer',1500)};
+}
+async function charger(){try{const r=await fetch('cours.json?t='+Date.now(),{cache:'no-store'});DATA=await r.json();rendre();if(!document.getElementById('form').children.length)formulaire()}
+  catch(e){document.getElementById('maj').textContent='hors ligne'}}
+charger(); setInterval(charger,5*60*1000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)charger()});
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js');
+</script>
+</body>
+</html>

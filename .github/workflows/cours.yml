@@ -1,0 +1,22 @@
+name: Cours de bourse
+on:
+  schedule:
+    - cron: '*/20 7-16 * * 1-5'   # toutes les 20 min, 8h-17h (heure de Paris en hiver), jours ouvrés
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  cours:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python .github/scripts/cours.py
+      - name: Enregistrer les cours
+        run: |
+          git config user.name "cours-bot"
+          git config user.email "cours-bot@users.noreply.github.com"
+          git add bourse/cours.json
+          git diff --cached --quiet || (git commit -m "Cours $(date -u +%FT%TZ)" && git push)
