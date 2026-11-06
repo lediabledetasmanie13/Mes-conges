@@ -1,5 +1,5 @@
 {
- "maj": "2026-11-05T16:57:37+00:00",
+ "maj": "2026-11-06T08:07:54+00:00",
  "cours": [
   {
    "nom": "Indice CAC 40",
@@ -7,14 +7,14 @@
    "prix": 8205.37,
    "veille": 8177.89013671875,
    "devise": "EUR",
-   "heure": 1793896920,
+   "heure": 1793898302,
    "ok": true
   },
   {
    "nom": "Accor",
    "symbole": "AC.PA",
    "prix": 49.48,
-   "veille": 49.369998931884766,
+   "veille": 47.81999969482422,
    "devise": "EUR",
    "heure": 1793896772,
    "ok": true
@@ -23,7 +23,7 @@
    "nom": "Air Liquide",
    "symbole": "AI.PA",
    "prix": 189.72,
-   "veille": 187.36000061035156,
+   "veille": 182.55999755859375,
    "devise": "EUR",
    "heure": 1793896696,
    "ok": true
@@ -32,7 +32,7 @@
    "nom": "Airbus",
    "symbole": "AIR.PA",
    "prix": 198.88,
-   "veille": 200.10000610351562,
+   "veille": 193.32000732421875,
    "devise": "EUR",
    "heure": 1793896594,
    "ok": true
@@ -41,7 +41,7 @@
    "nom": "ArcelorMittal",
    "symbole": "MT.AS",
    "prix": 54.5,
-   "veille": 55.119998931884766,
+   "veille": 54.15999984741211,
    "devise": "EUR",
    "heure": 1793896718,
    "ok": true
@@ -50,7 +50,7 @@
    "nom": "Axa",
    "symbole": "CS.PA",
    "prix": 45.71,
-   "veille": 45.18000030517578,
+   "veille": 43.04999923706055,
    "devise": "EUR",
    "heure": 1793896512,
    "ok": true
@@ -59,7 +59,7 @@
    "nom": "BNP Paribas",
    "symbole": "BNP.PA",
    "prix": 91.94,
-   "veille": 91.69999694824219,
+   "veille": 87.61000061035156,
    "devise": "EUR",
    "heure": 1793896527,
    "ok": true
@@ -68,7 +68,7 @@
    "nom": "Bouygues",
    "symbole": "EN.PA",
    "prix": 43.09,
-   "veille": 41.97999954223633,
+   "veille": 41.029998779296875,
    "devise": "EUR",
    "heure": 1793896595,
    "ok": true
@@ -77,7 +77,7 @@
    "nom": "Bureau Veritas",
    "symbole": "BVI.PA",
    "prix": 30.22,
-   "veille": 29.899999618530273,
+   "veille": 29.149999618530273,
    "devise": "EUR",
    "heure": 1793896519,
    "ok": true
@@ -86,7 +86,7 @@
    "nom": "Capgemini",
    "symbole": "CAP.PA",
    "prix": 130.5,
-   "veille": 129.5,
+   "veille": 125.19999694824219,
    "devise": "EUR",
    "heure": 1793896782,
    "ok": true
@@ -95,7 +95,7 @@
    "nom": "Carrefour",
    "symbole": "CA.PA",
    "prix": 13.64,
-   "veille": 13.454999923706055,
+   "veille": 13.074999809265137,
    "devise": "EUR",
    "heure": 1793896553,
    "ok": true
@@ -104,7 +104,7 @@
    "nom": "Crédit Agricole",
    "symbole": "ACA.PA",
    "prix": 15.78,
-   "veille": 15.520000457763672,
+   "veille": 15.020000457763672,
    "devise": "EUR",
    "heure": 1793896507,
    "ok": true
@@ -113,7 +113,7 @@
    "nom": "Danone",
    "symbole": "BN.PA",
    "prix": 68.56,
-   "veille": 67.63999938964844,
+   "veille": 66.0199966430664,
    "devise": "EUR",
    "heure": 1793896544,
    "ok": true
@@ -122,7 +122,7 @@
    "nom": "Dassault Systèmes",
    "symbole": "DSY.PA",
    "prix": 26.19,
-   "veille": 25.84000015258789,
+   "veille": 24.979999542236328,
    "devise": "EUR",
    "heure": 1793896528,
    "ok": true
@@ -131,7 +131,7 @@
    "nom": "Eiffage",
    "symbole": "FGR.PA",
    "prix": 106.0,
-   "veille": 104.25,
+   "veille": 102.44999694824219,
    "devise": "EUR",
    "heure": 1793896549,
    "ok": true
@@ -140,7 +140,7 @@
    "nom": "Engie",
    "symbole": "ENGI.PA",
    "prix": 24.01,
-   "veille": 24.06999969482422,
+   "veille": 23.31999969482422,
    "devise": "EUR",
    "heure": 1793896586,
    "ok": true
@@ -149,7 +149,7 @@
    "nom": "EssilorLuxottica",
    "symbole": "EL.PA",
    "prix": 191.95,
-   "veille": 189.10000610351562,
+   "veille": 184.25,
    "devise": "EUR",
    "heure": 1793896648,
    "ok": true
@@ -158,7 +158,7 @@
    "nom": "Eurofins Scientific",
    "symbole": "ERF.PA",
    "prix": 89.04,
-   "veille": 88.0199966430664,
+   "veille": 87.23999786376953,
    "devise": "EUR",
    "heure": 1793896502,
    "ok": true
@@ -167,7 +167,7 @@
    "nom": "Euronext",
    "symbole": "ENX.PA",
    "prix": 174.3,
-   "veille": 170.5,
+   "veille": 169.5,
    "devise": "EUR",
    "heure": 1793896556,
    "ok": true
@@ -176,7 +176,7 @@
    "nom": "Hermès",
    "symbole": "RMS.PA",
    "prix": 1387.0,
-   "veille": 1372.5,
+   "veille": 1312.5,
    "devise": "EUR",
    "heure": 1793896795,
    "ok": true
@@ -185,7 +185,7 @@
    "nom": "Kering",
    "symbole": "KER.PA",
    "prix": 190.62,
-   "veille": 191.6999969482422,
+   "veille": 180.24000549316406,
    "devise": "EUR",
    "heure": 1793896540,
    "ok": true
@@ -194,7 +194,7 @@
    "nom": "L'Oréal",
    "symbole": "OR.PA",
    "prix": 455.6,
-   "veille": 444.75,
+   "veille": 432.70001220703125,
    "devise": "EUR",
    "heure": 1793896594,
    "ok": true
@@ -203,7 +203,7 @@
    "nom": "Legrand",
    "symbole": "LR.PA",
    "prix": 127.55,
-   "veille": 127.69999694824219,
+   "veille": 133.8000030517578,
    "devise": "EUR",
    "heure": 1793896513,
    "ok": true
@@ -212,7 +212,7 @@
    "nom": "LVMH",
    "symbole": "MC.PA",
    "prix": 418.65,
-   "veille": 416.25,
+   "veille": 401.5,
    "devise": "EUR",
    "heure": 1793896541,
    "ok": true
@@ -221,7 +221,7 @@
    "nom": "Michelin",
    "symbole": "ML.PA",
    "prix": 33.34,
-   "veille": 33.2400016784668,
+   "veille": 32.43000030517578,
    "devise": "EUR",
    "heure": 1793896519,
    "ok": true
@@ -230,7 +230,7 @@
    "nom": "Orange",
    "symbole": "ORA.PA",
    "prix": 15.34,
-   "veille": 15.15999984741211,
+   "veille": 14.699999809265137,
    "devise": "EUR",
    "heure": 1793896682,
    "ok": true
@@ -239,7 +239,7 @@
    "nom": "Pernod Ricard",
    "symbole": "RI.PA",
    "prix": 71.66,
-   "veille": 70.31999969482422,
+   "veille": 68.26000213623047,
    "devise": "EUR",
    "heure": 1793896517,
    "ok": true
@@ -248,7 +248,7 @@
    "nom": "Publicis",
    "symbole": "PUB.PA",
    "prix": 104.9,
-   "veille": 104.44999694824219,
+   "veille": 101.1500015258789,
    "devise": "EUR",
    "heure": 1793896517,
    "ok": true
@@ -257,7 +257,7 @@
    "nom": "Renault",
    "symbole": "RNO.PA",
    "prix": 28.59,
-   "veille": 28.6299991607666,
+   "veille": 27.239999771118164,
    "devise": "EUR",
    "heure": 1793896569,
    "ok": true
@@ -266,7 +266,7 @@
    "nom": "Safran",
    "symbole": "SAF.PA",
    "prix": 297.6,
-   "veille": 292.5,
+   "veille": 285.0,
    "devise": "EUR",
    "heure": 1793896795,
    "ok": true
@@ -275,7 +275,7 @@
    "nom": "Saint-Gobain",
    "symbole": "SGO.PA",
    "prix": 74.44,
-   "veille": 72.73999786376953,
+   "veille": 70.31999969482422,
    "devise": "EUR",
    "heure": 1793896669,
    "ok": true
@@ -284,7 +284,7 @@
    "nom": "Sanofi",
    "symbole": "SAN.PA",
    "prix": 84.53,
-   "veille": 84.0999984741211,
+   "veille": 80.9800033569336,
    "devise": "EUR",
    "heure": 1793896623,
    "ok": true
@@ -293,7 +293,7 @@
    "nom": "Schneider Electric",
    "symbole": "SU.PA",
    "prix": 227.85,
-   "veille": 231.5500030517578,
+   "veille": 239.75,
    "devise": "EUR",
    "heure": 1793896754,
    "ok": true
@@ -302,7 +302,7 @@
    "nom": "Société Générale",
    "symbole": "GLE.PA",
    "prix": 64.52,
-   "veille": 63.88999938964844,
+   "veille": 61.54999923706055,
    "devise": "EUR",
    "heure": 1793896777,
    "ok": true
@@ -311,7 +311,7 @@
    "nom": "Stellantis",
    "symbole": "STLAP.PA",
    "prix": 3.964,
-   "veille": 4.1585001945495605,
+   "veille": 4.084000110626221,
    "devise": "EUR",
    "heure": 1793896520,
    "ok": true
@@ -320,7 +320,7 @@
    "nom": "STMicroelectronics",
    "symbole": "STMPA.PA",
    "prix": 37.065,
-   "veille": 40.8849983215332,
+   "veille": 43.099998474121094,
    "devise": "EUR",
    "heure": 1793896765,
    "ok": true
@@ -329,7 +329,7 @@
    "nom": "Thales",
    "symbole": "HO.PA",
    "prix": 224.6,
-   "veille": 227.5,
+   "veille": 233.0,
    "devise": "EUR",
    "heure": 1793896688,
    "ok": true
@@ -338,7 +338,7 @@
    "nom": "TotalEnergies",
    "symbole": "TTE.PA",
    "prix": 80.7,
-   "veille": 81.56999969482422,
+   "veille": 82.70999908447266,
    "devise": "EUR",
    "heure": 1793896703,
    "ok": true
@@ -347,7 +347,7 @@
    "nom": "Unibail-Rodamco-Westfield",
    "symbole": "URW.PA",
    "prix": 93.82,
-   "veille": 93.77999877929688,
+   "veille": 92.19999694824219,
    "devise": "EUR",
    "heure": 1793896620,
    "ok": true
@@ -356,7 +356,7 @@
    "nom": "Veolia",
    "symbole": "VIE.PA",
    "prix": 33.75,
-   "veille": 33.790000915527344,
+   "veille": 32.95000076293945,
    "devise": "EUR",
    "heure": 1793896744,
    "ok": true
@@ -365,7 +365,7 @@
    "nom": "Vinci",
    "symbole": "DG.PA",
    "prix": 112.95,
-   "veille": 111.44999694824219,
+   "veille": 108.80000305175781,
    "devise": "EUR",
    "heure": 1793896594,
    "ok": true
@@ -374,7 +374,7 @@
    "nom": "Kaufman & Broad",
    "symbole": "KOF.PA",
    "prix": 20.35,
-   "veille": 19.899999618530273,
+   "veille": 19.639999389648438,
    "devise": "EUR",
    "heure": 1793896513,
    "ok": true
@@ -383,7 +383,7 @@
    "nom": "Vivendi",
    "symbole": "VIV.PA",
    "prix": 1.725,
-   "veille": 1.6990000009536743,
+   "veille": 1.6299999952316284,
    "devise": "EUR",
    "heure": 1793896509,
    "ok": true
@@ -397,7 +397,7 @@
    "nom": "Havas",
    "symbole": "HAVAS.AS",
    "prix": 18.25,
-   "veille": 18.450000762939453,
+   "veille": 17.850000381469727,
    "devise": "EUR",
    "heure": 1793896509,
    "ok": true
@@ -406,7 +406,7 @@
    "nom": "Louis Hachette Group",
    "symbole": "ALHG.PA",
    "prix": 1.794,
-   "veille": 1.7920000553131104,
+   "veille": 1.7280000448226929,
    "devise": "EUR",
    "heure": 1793896524,
    "ok": true
