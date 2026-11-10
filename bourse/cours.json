@@ -1,14 +1,14 @@
 {
- "maj": "2026-11-10T13:24:06+00:00",
+ "maj": "2026-11-10T14:29:42+00:00",
  "cours": [
   {
    "nom": "CAC 40",
    "symbole": "^FCHI",
    "couleur": "#FFFFFF",
-   "prix": 8325.76,
+   "prix": 8326.71,
    "veille": 8233.2998046875,
    "devise": "EUR",
-   "heure": 1794316125,
+   "heure": 1794320070,
    "historique": [
     7832.88,
     7827.63,
@@ -31,7 +31,7 @@
     8205.37,
     8139.0,
     8233.3,
-    8325.76
+    8326.71
    ],
    "ok": true
   },
@@ -42,7 +42,7 @@
    "prix": 115.6,
    "veille": 113.69999694824219,
    "devise": "EUR",
-   "heure": 1794316019,
+   "heure": 1794320067,
    "historique": [
     107.6,
     106.6,
@@ -73,10 +73,10 @@
    "nom": "VIVENDI",
    "symbole": "VIV.PA",
    "couleur": "#F04848",
-   "prix": 1.665,
+   "prix": 1.664,
    "veille": 1.656000018119812,
    "devise": "EUR",
-   "heure": 1794315828,
+   "heure": 1794319732,
    "historique": [
     1.47,
     1.51,
@@ -110,7 +110,7 @@
    "prix": 20.6,
    "veille": 20.25,
    "devise": "EUR",
-   "heure": 1794316066,
+   "heure": 1794317744,
    "historique": [
     18.5,
     18.68,
@@ -141,10 +141,10 @@
    "nom": "PUBLICIS",
    "symbole": "PUB.PA",
    "couleur": "#C0C0C0",
-   "prix": 104.15,
+   "prix": 104.25,
    "veille": 103.25,
    "devise": "EUR",
-   "heure": 1794316096,
+   "heure": 1794320018,
    "historique": [
     98.74,
     100.95,
@@ -167,7 +167,7 @@
     104.9,
     102.95,
     103.25,
-    104.15
+    104.25
    ],
    "ok": true
   }
