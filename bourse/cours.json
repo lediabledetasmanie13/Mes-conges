@@ -1,14 +1,14 @@
 {
- "maj": "2026-11-26T11:50:14+00:00",
+ "maj": "2026-11-26T12:59:40+00:00",
  "cours": [
   {
    "nom": "CAC 40",
    "symbole": "^FCHI",
    "couleur": "#FFFFFF",
-   "prix": 8125.12,
+   "prix": 8111.11,
    "veille": 7980.56982421875,
    "devise": "EUR",
-   "heure": 1795692900,
+   "heure": 1795697070,
    "historique": [
     7886.96,
     7970.0,
@@ -31,7 +31,7 @@
     8044.84,
     8040.49,
     7980.57,
-    8125.12
+    8111.11
    ],
    "ok": true
   },
@@ -39,10 +39,10 @@
    "nom": "VINCI",
    "symbole": "DG.PA",
    "couleur": "#FF8040",
-   "prix": 114.4,
+   "prix": 114.2,
    "veille": 112.4000015258789,
    "devise": "EUR",
-   "heure": 1795692907,
+   "heure": 1795697057,
    "historique": [
     108.3,
     109.25,
@@ -65,7 +65,7 @@
     112.4,
     111.75,
     112.4,
-    114.4
+    114.2
    ],
    "ok": true
   },
@@ -73,10 +73,10 @@
    "nom": "VIVENDI",
    "symbole": "VIV.PA",
    "couleur": "#F04848",
-   "prix": 1.577,
+   "prix": 1.575,
    "veille": 1.5399999618530273,
    "devise": "EUR",
-   "heure": 1795691979,
+   "heure": 1795696642,
    "historique": [
     1.52,
     1.52,
@@ -107,10 +107,10 @@
    "nom": "KAUFMAN ET BROAD",
    "symbole": "KOF.PA",
    "couleur": "#FF0080",
-   "prix": 20.65,
+   "prix": 20.6,
    "veille": 20.25,
    "devise": "EUR",
-   "heure": 1795689919,
+   "heure": 1795695363,
    "historique": [
     19.22,
     19.42,
@@ -133,7 +133,7 @@
     19.44,
     19.86,
     20.25,
-    20.65
+    20.6
    ],
    "ok": true
   },
@@ -141,10 +141,10 @@
    "nom": "PUBLICIS",
    "symbole": "PUB.PA",
    "couleur": "#C0C0C0",
-   "prix": 102.65,
+   "prix": 102.45,
    "veille": 101.55000305175781,
    "devise": "EUR",
-   "heure": 1795692803,
+   "heure": 1795696931,
    "historique": [
     98.4,
     99.38,
@@ -167,7 +167,7 @@
     99.58,
     101.35,
     101.55,
-    102.65
+    102.45
    ],
    "ok": true
   }
